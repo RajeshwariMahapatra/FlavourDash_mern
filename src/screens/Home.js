@@ -3,6 +3,8 @@ import Card from '../components/Card'
 // import Carousel from '../components/Carousel'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
+import Chatbot from './Chatbot';
+
 export default function Home() {
   const [foodCat, setFoodCat] = useState([])
   const [foodItems, setFoodItems] = useState([])
@@ -31,6 +33,7 @@ export default function Home() {
     <div >
       <div>
         <Navbar />
+        <Chatbot />
       </div>
       <div>
         <div id="carouselExampleFade" className="carousel slide carousel-fade " data-bs-ride="carousel">

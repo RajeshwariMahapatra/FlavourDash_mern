@@ -1,107 +1,104 @@
-// import React from 'react';
-// import ChatBot from 'react-simple-chatbot';
-// import { ThemeProvider } from 'styled-components';
+import React, { Component } from 'react';
 
-// const theme = {
-//   background: '#C9FF8F',
-//   headerBgColor: '#197B22',
-//   headerFontSize: '20px',
-//   botBubbleColor: '#0F3789',
-//   headerFontColor: 'white',
-//   botFontColor: 'white',
-//   userBubbleColor: '#FF5733',
-//   userFontColor: 'white',
-// };
+const chatbotStyles = {
+  background: '#C9FF8F',
+  headerBgColor: '#197B22',
+  headerFontSize: '20px',
+  botBubbleColor: '#0F3789',
+  headerFontColor: 'white',
+  botFontColor: 'white',
+  userBubbleColor: '#FF5733',
+  userFontColor: 'white',
+};
 
-// const steps = [
-//   {
-//     id: '0',
-//     message: "Hello! I'm Dr. Sattva. How can I assist you today?",
-//     trigger: '1',
-//   },
-//   {
-//     id: '1',
-//     user: true,
-//     trigger: '2',
-//   },
-//   {
-//     id: '2',
-//     message: 'Please tell me which disease or condition you are currently treating with allopathic medicine:',
-//     trigger: '3',
-//   },
-//   {
-//     id: '3',
-//     user: true,
-//     trigger: '4',
-//   },
-//   {
-//     id: '4',
-//     message: 'Thank you for providing information about your condition. Ayurveda can offer alternative treatments for {previousValue}. Would you like to explore Ayurvedic options?',
-//     trigger: '5',
-//   },
-//   {
-//     id: '5',
-//     options: [
-//       { value: 'yes', label: 'Yes', trigger: '6' },
-//       { value: 'no', label: 'No', end: true },
-//     ],
-//   },
-//   {
-//     id: '6',
-//     message: 'Great! Ayurveda offers holistic and natural treatments. Let me recommend some Ayurvedic remedies for {previousValue}:',
-//     trigger: '7',
-//   },
-//   {
-//     id: '7',
-//     message: '1. {Tulsi}',
-//     trigger: '8',
-//   },
-//   {
-//     id: '8',
-//     message: '2. {Neem}',
-//     trigger: '9',
-//   },
-//   {
-//     id: '9',
-//     message: '3. {Haldi}',
-//     trigger: '10',
-//   },
-//   {
-//     id: '10',
-//     message: 'Please consult with an Ayurvedic practitioner for more personalized advice and guidance. Is there anything else I can assist you with?',
-//     trigger: '11',
-//   },
-//   {
-//     id: '11',
-//     options: [
-//       { value: 'yes', label: 'Yes', trigger: '12' },
-//       { value: 'no', label: 'No', end: true },
-//     ],
-//   },
-//   {
-//     id: '12',
-//     message: 'Of course! Feel free to ask any questions or share more about your health concerns. I am here to help.',
-//     trigger: '11',
-//   },
-// ];
+class Chatbot extends Component {
+  constructor() {
+    super();
+    this.state = {
+      messages: [
+        {
+          text: "Hello! I'm FlavourDash. How can I assist you today?",
+          isBot: true,
+        },
+      ],
+      newMessage: "",
+    };
+  }
 
-// const config = {
-//   botAvatar: "https://w7.pngwing.com/pngs/695/247/png-transparent-chatbot-logo-robotics-robot-electronics-leaf-logo.png",
-//   floating: true,
-// };
+  handleUserInput = (e) => {
+    this.setState({ newMessage: e.target.value });
+  };
 
-// function ChatbotComponent() {
-//   return (
-//     <div className="App">
-//       <ThemeProvider theme={theme}>
-//         <ChatBot
-//           headerTitle="Sattva"
-//           steps={steps}
-//           {...config}
-//         />
-//       </ThemeProvider>
-//     </div>
-//   );
-// }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { newMessage } = this.state;
 
-// export default ChatbotComponent;
+    if (newMessage.trim() !== "") {
+      this.setState((prevState) => ({
+        messages: [
+          ...prevState.messages,
+          { text: newMessage, isBot: false },
+        ],
+        newMessage: "",
+      }));
+
+      // Simulate bot response with predefined answers
+      setTimeout(() => {
+        let botResponse = "I'm a static chatbot response.";
+        if (newMessage.includes("hello")) {
+          botResponse = "Hello! How can I help you today?";
+        } else if (newMessage.includes("menu")) {
+          botResponse = "Here is our menu: [list of items].";
+        } else if (newMessage.includes("opening hours")) {
+          botResponse = "Our opening hours are [opening hours].";
+        }
+        
+        this.setState((prevState) => ({
+          messages: [
+            ...prevState.messages,
+            {
+              text: botResponse,
+              isBot: true,
+            },
+          ],
+        }));
+      }, 1000);
+    }
+  }
+
+  render() {
+    const { messages, newMessage } = this.state;
+
+    return (
+      <div style={{ background: chatbotStyles.background }}>
+        <div className="chatbot-container">
+          <div className="chatbot-messages">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`message ${message.isBot ? 'bot' : 'user'}`}
+                style={{
+                  backgroundColor: message.isBot ? chatbotStyles.botBubbleColor : chatbotStyles.userBubbleColor,
+                  color: message.isBot ? chatbotStyles.botFontColor : chatbotStyles.userFontColor,
+                }}
+              >
+                {message.text}
+              </div>
+            ))}
+          </div>
+          <form onSubmit={this.handleSubmit} className="user-input">
+            <input
+              type="text"
+              value={newMessage}
+              onChange={this.handleUserInput}
+              placeholder="Type a message..."
+            />
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Chatbot;
