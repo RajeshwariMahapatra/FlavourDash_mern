@@ -8,12 +8,12 @@ import Home from './screens/Home';
 import HomePage from './screens/HomePage';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
+import CashPayment from './screens/CashPayment'
 import PaymentPage from './screens/PaymentPage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cart from './screens/Cart'; // Import the Cart component
 import MyOrder from './screens/MyOrder';
 import { CartProvider } from './components/ContextReducer';
-import CashPayment from './screens/CashPayment';
 
 function App() {
   return (
