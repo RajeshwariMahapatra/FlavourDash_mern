@@ -42,6 +42,11 @@ export default function Navbar(props) {
                                     <Link className="nav-link fs-5 mx-3 active" aria-current="page" to="/myorder" >My Orders</Link>  {/* index.css - nav-link color white */}
                                 </li> : ""}
                         </ul>
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item ml-auto">
+                                <Link className="nav-link fs-5 mx-3 active" aria-current="page" to="/review">Reviews</Link>  
+                            </li>
+                        </ul>
                         {(!localStorage.getItem("token")) ?
                             <form className="d-flex">
                                 <Link className="btn bg-white text-success mx-1 " to="/login">Login</Link>

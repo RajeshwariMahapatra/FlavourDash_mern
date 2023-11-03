@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cart from './screens/Cart'; // Import the Cart component
 import MyOrder from './screens/MyOrder';
 import { CartProvider } from './components/ContextReducer';
+import ReviewPage from './screens/ReviewPage.js';
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
             <Route path="/payment/cash" element={<CashPayment />} />
             <Route path="/payment" element={<PaymentPage />} />
             <Route path="/cart" element={<Cart />} /> {/* Include the Cart component */}
+            <Route exact path="/review" element={<ReviewPage/>} />
+            {/* <Route exact path="/review" component={ReviewPage} /> */}
           </Routes>
         </div>
       </Router>
