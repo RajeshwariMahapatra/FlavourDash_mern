@@ -3,7 +3,44 @@ import Navbar from '../components/Navbar';
 
 const ReviewPage = () => {
   const [newReview, setNewReview] = useState({ name: '', review: '', rating: 0 });
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([
+    {
+      name: 'Riya',
+      review: 'Delicious food and quick delivery. I\'m a regular customer!',
+      rating: 4.5,
+      image: 'reviewer1.jpg',
+    },
+    {
+      name: 'Sam',
+      review: 'FlavorDash never disappoints. Great variety and taste!',
+      rating: 5.0,
+      image: 'reviewer2.jpg',
+    },
+    {
+      name: 'Ausha',
+      review: 'My go-to food delivery service. Always on time.',
+      rating: 4.0,
+      image: 'reviewer3.jpg',
+    },
+    {
+      name: 'Jon',
+      review: 'The best food delivery experience ever!',
+      rating: 5.0,
+      image: 'reviewer4.jpg',
+    },
+    {
+      name: 'Tabs',
+      review: 'Always on time and delicious food.',
+      rating: 4.0,
+      image: 'reviewer5.jpg',
+    },
+    {
+      name: 'Raju',
+      review: 'Great taste and quality every time.',
+      rating: 4.5,
+      image: 'reviewer6.jpg',
+    },
+  ]);
 
   const renderStarRating = (rating) => {
     const maxStars = 5;
