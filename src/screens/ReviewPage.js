@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 
 const ReviewPage = () => {
+  const [newReview, setNewReview] = useState({ name: '', review: '', rating: 0 });
+  const [reviews, setReviews] = useState([]);
+
   const renderStarRating = (rating) => {
     const maxStars = 5;
     const stars = [];
@@ -39,62 +42,11 @@ const ReviewPage = () => {
     marginBottom: '1rem',
   };
 
-  const reviews = [
-    {
-      name: 'Customer 1',
-      review: 'Delicious food and quick delivery. I\'m a regular customer!',
-      rating: 4.5,
-      image: 'reviewer1.jpg',
-    },
-    {
-      name: 'Customer 2',
-      review: 'FlavorDash never disappoints. Great variety and taste!',
-      rating: 5.0,
-      image: 'reviewer2.jpg',
-    },
-    {
-      name: 'Customer 3',
-      review: 'My go-to food delivery service. Always on time.',
-      rating: 4.0,
-      image: 'reviewer3.jpg',
-    },
-    {
-      name: 'Customer 4',
-      review: 'The best food delivery experience ever!',
-      rating: 5.0,
-      image: 'reviewer4.jpg',
-    },
-    {
-      name: 'Customer 5',
-      review: 'Always on time and delicious food.',
-      rating: 4.0,
-      image: 'reviewer5.jpg',
-    },
-    {
-      name: 'Customer 6',
-      review: 'Great taste and quality every time.',
-      rating: 4.5,
-      image: 'reviewer6.jpg',
-    },
-    {
-      name: 'Customer 7',
-      review: 'FlavorDash has a wide range of food options.',
-      rating: 4.5,
-      image: 'reviewer7.jpg',
-    },
-    {
-      name: 'Customer 8',
-      review: 'Quick delivery and excellent service.',
-      rating: 4.0,
-      image: 'reviewer8.jpg',
-    },
-    {
-      name: 'Customer 9',
-      review: 'I love the variety of dishes available.',
-      rating: 5.0,
-      image: 'reviewer9.jpg',
-    },
-  ];
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setReviews([...reviews, newReview]);
+    setNewReview({ name: '', review: '', rating: 0 });
+  };
 
   return (
     <div>
@@ -105,11 +57,6 @@ const ReviewPage = () => {
           {reviews.map((review, index) => (
             <div key={index} className="col-lg-4 col-md-6 mb-4">
               <div style={cardStyle}>
-                <img
-                  src={review.image}
-                  className="card-img-top"
-                  alt={review.name}
-                />
                 <div className="card-body">
                   <h5 style={cardTitleStyle}>{review.name}</h5>
                   <p style={cardTextStyle}>{review.review}</p>
@@ -119,6 +66,45 @@ const ReviewPage = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="container mt-4">
+        <h2>Add Your Review</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              value={newReview.name}
+              onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="review" className="form-label">Review</label>
+            <textarea
+              className="form-control"
+              id="review"
+              rows="3"
+              value={newReview.review}
+              onChange={(e) => setNewReview({ ...newReview, review: e.target.value })}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="rating" className="form-label">Rating</label>
+            <input
+              type="number"
+              className="form-control"
+              id="rating"
+              min="0"
+              max="5"
+              step="0.1"
+              value={newReview.rating}
+              onChange={(e) => setNewReview({ ...newReview, rating: parseFloat(e.target.value) })}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">Submit Review</button>
+        </form>
       </div>
     </div>
   );
